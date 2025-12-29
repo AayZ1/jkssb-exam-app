@@ -1,65 +1,62 @@
+/* ================= RESET ================= */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+/* ================= BODY ================= */
 body {
-  min-height: 100vh;
-  background: #eef2f7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
+  background: #f4f6fb;
+  color: #222;
+  padding: 12px;
 }
 
+/* ================= MAIN CONTAINER ================= */
 #app {
-  width: 100%;
-  max-width: 420px;
-  background: #fff;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-  display: flex;
-  flex-direction: column;
+  max-width: 720px;
+  margin: auto;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
 
+/* ================= HEADER ================= */
 h1 {
   text-align: center;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
   color: #1f3c88;
-  margin-bottom: 14px;
 }
 
-#timer {
-  text-align: right;
-  font-weight: 600;
-  color: #d63333;
-  margin-bottom: 8px;
+/* ================= CATEGORY BOX ================= */
+#categoryBox {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
+#categoryBox button {
+  padding: 12px;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  border: none;
+  background: #1f3c88;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ================= QUESTION ================= */
 #question {
   font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 14px;
 }
 
-#categoryBox {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-#categoryBox button {
-  padding: 14px;
-  border-radius: 10px;
-  border: none;
-  background: #1f3c88;
-  color: #fff;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
+/* ================= OPTIONS ================= */
 #options {
   display: flex;
   flex-direction: column;
@@ -67,47 +64,99 @@ h1 {
 }
 
 #options button {
-  padding: 14px;
+  padding: 12px;
+  font-size: 0.95rem;
   border-radius: 10px;
-  border: 1px solid #d0d7e2;
-  background: #f9fbff;
-  text-align: left;
+  border: 1px solid #dcdcdc;
+  background: #f9f9f9;
   cursor: pointer;
+  text-align: left;
 }
 
-#options button[style*="green"] {
-  background: #28a745 !important;
-  color: white !important;
+#options button:hover {
+  background: #eef2ff;
 }
 
-#options button[style*="red"] {
-  background: #dc3545 !important;
-  color: white !important;
-}
-
-#score {
+/* ================= TIMER ================= */
+#timer {
   text-align: center;
-  margin-top: 16px;
-  font-weight: 600;
-  color: #1f3c88;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #d63333;
 }
 
-/* PROGRESS BAR */
-#progressText {
-  font-size: 0.85rem;
-  margin-bottom: 6px;
-  text-align: right;
-}
-
-#progressBar {
-  height: 8px;
-  background: #e1e5f0;
+/* ================= PROGRESS ================= */
+#progressContainer {
+  width: 100%;
+  background: #e5e7eb;
   border-radius: 10px;
   overflow: hidden;
+  margin-bottom: 10px;
 }
 
 #progressFill {
-  height: 100%;
+  height: 8px;
+  background: #1f3c88;
   width: 0%;
-  background: linear-gradient(90deg, #1f3c88, #4c6ef5);
+}
+
+#progressText {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+/* ================= ANALYSIS CARDS ================= */
+.analysis-card {
+  background: #f1f5ff;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+/* ================= BUTTON GROUP ================= */
+button {
+  transition: 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* ================= CANVAS (CHARTS) ================= */
+canvas {
+  margin-top: 14px;
+  max-width: 100%;
+}
+
+/* ================= REVIEW NAV ================= */
+.review-nav {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.review-nav button {
+  flex: 1;
+}
+
+/* ================= MOBILE FIRST DONE ================= */
+
+/* ================= TABLET ================= */
+@media (min-width: 600px) {
+  body {
+    padding: 20px;
+  }
+
+  #question {
+    font-size: 1.15rem;
+  }
+}
+
+/* ================= DESKTOP ================= */
+@media (min-width: 900px) {
+  #app {
+    padding: 20px;
+  }
 }
