@@ -14,6 +14,7 @@ const MARKS_WRONG = -0.25;
 let questions = [];
 let activeQuestions = [];
 let userAnswers = [];
+let questionsReady = false;
 
 let current = 0;
 let score = 0;
@@ -40,20 +41,35 @@ const progressFill = document.getElementById("progressFill");
 
 // ================= LOAD QUESTIONS =================
 async function loadQuestions() {
+  questionEl.innerHTML = `
+    <div class="loading">
+      Loading questions…
+      <span>Please wait</span>
+    </div>
+  `;
+  optionsEl.innerHTML = "";
+
   const { data, error } = await supabaseClient
     .from("questions")
-    .select("*");
+    .select("id, category, question, options, correct, explanation")
+
 
   if (error) {
-    alert("Failed to load questions from server");
+    questionEl.innerHTML = `
+      <div class="empty-state">
+        Failed to load questions.<br>
+        Please refresh the page.
+      </div>
+    `;
     console.error(error);
     return;
   }
 
   questions = data;
-}
+  questionsReady = true;
+  questionEl.innerHTML = "Select a test to begin";
 
-loadQuestions();
+}
 
 // ================= START CATEGORY =================
 window.startCategory = function (category) {
@@ -154,6 +170,10 @@ function showQuestion() {
     btn.innerText = opt;
 
     btn.onclick = () => {
+      // disable all options immediately
+      const allButtons = document.querySelectorAll("#options button");
+      allButtons.forEach(b => b.classList.add("disabled"));
+
       userAnswers[current] = i;
 
       if (i === q.correct) {
@@ -166,8 +186,11 @@ function showQuestion() {
         sectionStats[q.category].wrong++;
       }
 
-      current++;
-      showQuestion();
+      // smooth transition to next question
+      setTimeout(() => {
+        current++;
+        showQuestion();
+      }, 300);
     };
 
     optionsEl.appendChild(btn);
@@ -286,6 +309,17 @@ window.showSectionAnalysis = function () {
 
 // ================= REVIEW =================
 window.startReview = function () {
+  if (!activeQuestions.length) {
+    questionEl.innerText = "Review";
+    optionsEl.innerHTML = `
+    <div class="empty-state">
+      No test available for review.<br>
+      Attempt a test first.
+    </div>
+  `;
+    return;
+  }
+
   reviewIndex = 0;
   showReviewQuestion();
 };
@@ -399,9 +433,16 @@ function showProgress() {
   const attempts = JSON.parse(localStorage.getItem("jkssb_attempts")) || [];
 
   if (!attempts.length) {
-    alert("No attempts found");
+    questionEl.innerText = "Progress";
+    optionsEl.innerHTML = `
+    <div class="empty-state">
+      No tests attempted yet.<br>
+      Start a test to see your progress here.
+    </div>
+  `;
     return;
   }
+
 
   questionEl.innerText = "📈 Progress Over Time";
   optionsEl.innerHTML = `
@@ -463,5 +504,24 @@ function renderAttemptList(attempts) {
     `;
   });
 }
+function goHome() {
+  // clear question & options
+  document.getElementById("question").innerHTML = "";
+  document.getElementById("options").innerHTML = "";
 
+  // show category buttons again
+  document.getElementById("categoryBox").style.display = "grid";
+}
+function setActiveNav(index) {
+  const buttons = document.querySelectorAll("#bottomNav button");
+  buttons.forEach((btn, i) => {
+    btn.classList.toggle("active", i === index);
+  });
+}
+
+function enableCategoryButtons() {
+  document.querySelectorAll("#categoryBox button").forEach(btn => {
+    btn.disabled = false;
+  });
+}
 
