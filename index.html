@@ -2,16 +2,25 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>JKSSB Practice Test</title>
-  <link rel="stylesheet" href="css/style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>JKSSB Exam App</title>
 
+  <!-- Mobile responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
- <body>
 
+  <!-- ================= APP CONTAINER ================= -->
   <div id="app">
 
     <!-- TOP BAR -->
@@ -45,18 +54,20 @@
     </main>
 
   </div>
+  <!-- ================= END APP ================= -->
 
-  <!-- SCRIPTS -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- ================= BOTTOM NAVIGATION ================= -->
+  <nav id="bottomNav">
+    <button onclick="setActiveNav(0); goHome()">🏠<span>Home</span></button>
+    <button onclick="setActiveNav(1); showProgress()">📈<span>Progress</span></button>
+    <button onclick="setActiveNav(2); showSectionAnalysis()">📊<span>Analysis</span></button>
+    <button onclick="setActiveNav(3); startReview()">📄<span>Review</span></button>
+  </nav>
+
+
+  <!-- ================= MAIN SCRIPT ================= -->
   <script src="js/test.js"></script>
 
 </body>
 
-</body>
-
-
 </html>
-
-
-
