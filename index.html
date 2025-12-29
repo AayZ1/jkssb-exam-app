@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JKSSB Practice Test</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+  <div id="app">
+
+    <h1>JKSSB Practice Test</h1>
+
+    <!-- TIMER -->
+    <div id="timer" style="display:none;">30:00</div>
+
+    <!-- PROGRESS BAR -->
+    <div id="progressContainer" style="display:none;">
+      <div id="progressText"></div>
+      <div id="progressBar">
+        <div id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- MAIN HEADING -->
+    <h2 id="question">Select a Category</h2>
+
+    <!-- CATEGORY BUTTONS -->
+    <div id="categoryBox">
+      <button onclick="startMockTest()">Full Length Mock Test</button>
+      <button onclick="startCategory('JK_GK')">JK GK</button>
+      <button onclick="startCategory('POLITY')">Polity</button>
+      <button onclick="startCategory('HISTORY')">History</button>
+    </div>
+
+    <!-- OPTIONS / CONTENT -->
+    <div id="options"></div>
+
+    <!-- SCORE -->
+    <h3 id="score"></h3>
+
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+  <script src="js/test.js"></script>
+</body>
+
+</html>
