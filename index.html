@@ -10,41 +10,53 @@
 </head>
 
 <body>
+ <body>
+
   <div id="app">
 
+    <!-- TOP BAR -->
     <header id="topBar">
-      <div id="timer"></div>
+      <div id="timer">00:00</div>
       <div id="progressText"></div>
     </header>
 
+    <!-- PROGRESS BAR -->
     <div id="progressContainer">
       <div id="progressFill"></div>
     </div>
 
+    <!-- MAIN CONTENT -->
     <main id="content">
+
       <h1>JKSSB Exam App</h1>
 
+      <!-- CATEGORY SELECTION -->
       <div id="categoryBox">
-        <!-- category buttons -->
+        <button onclick="startMockTest()">Full Length Mock</button>
+        <button onclick="startCategory('JK_GK')">JK GK</button>
+        <button onclick="startCategory('POLITY')">Polity</button>
+        <button onclick="startCategory('HISTORY')">History</button>
       </div>
 
+      <!-- QUESTION & OPTIONS -->
       <div id="question"></div>
       <div id="options"></div>
+
     </main>
 
   </div>
-</body>
 
-
-  <script src="js/data.js"></script>
+  <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
   <script src="js/test.js"></script>
+
+</body>
+
 </body>
 
 
 </html>
+
 
 
