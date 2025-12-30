@@ -16,6 +16,7 @@ let activeQuestions = [];
 let userAnswers = [];
 let questionsReady = false;
 
+
 let current = 0;
 let score = 0;
 let time = 0;
@@ -41,18 +42,29 @@ const progressFill = document.getElementById("progressFill");
 
 // ================= LOAD QUESTIONS =================
 async function loadQuestions() {
+  // show loading state
   questionEl.innerHTML = `
     <div class="loading">
-      Loading questions…
-      <span>Please wait</span>
+      Preparing test data…
+      <span>This may take a few seconds on first load</span>
     </div>
   `;
   optionsEl.innerHTML = "";
 
+  // 1️⃣ check cache first
+  const cached = localStorage.getItem("jkssb_questions");
+  if (cached) {
+    questions = JSON.parse(cached);
+    questionsReady = true;
+    questionEl.innerHTML = "Select a test to begin";
+    enableCategoryButtons();
+    return;
+  }
+
+  // 2️⃣ fetch from Supabase
   const { data, error } = await supabaseClient
     .from("questions")
-    .select("id, category, question, options, correct, explanation")
-
+    .select("id, category, question, options, correct, explanation");
 
   if (error) {
     questionEl.innerHTML = `
@@ -65,11 +77,19 @@ async function loadQuestions() {
     return;
   }
 
+  // 3️⃣ success
   questions = data;
+  localStorage.setItem("jkssb_questions", JSON.stringify(data));
   questionsReady = true;
   questionEl.innerHTML = "Select a test to begin";
-
+  enableCategoryButtons();
 }
+function enableCategoryButtons() {
+  document.querySelectorAll("#categoryBox button").forEach(btn => {
+    btn.disabled = false;
+  });
+}
+
 
 // ================= START CATEGORY =================
 window.startCategory = function (category) {
@@ -525,3 +545,4 @@ function enableCategoryButtons() {
   });
 }
 
+loadQuestions();
