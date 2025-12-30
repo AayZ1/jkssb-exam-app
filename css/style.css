@@ -1,12 +1,14 @@
-/* ================= RESET ================= */
+/* =====================================================
+   RESET & BASE
+===================================================== */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* ================= BODY ================= */
 body {
   background: #f2f5fb;
   color: #1f2937;
@@ -14,26 +16,33 @@ body {
   padding: 10px;
   font-size: 15px;
   line-height: 1.6;
+  padding-bottom: 72px;
+  /* space for bottom nav */
 }
 
-
-/* ================= APP CONTAINER ================= */
+/* =====================================================
+   APP CONTAINER
+===================================================== */
 #app {
   max-width: 720px;
   margin: auto;
   background: #ffffff;
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 1;
 }
 
-/* ================= TOP BAR ================= */
+/* =====================================================
+   TOP BAR
+===================================================== */
 #topBar {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: #1f3c88;
-  color: #fff;
+  background: linear-gradient(135deg, #1f3c88, #2f55c7);
+  color: #ffffff;
   padding: 12px 16px;
   display: flex;
   justify-content: space-between;
@@ -41,29 +50,49 @@ body {
   font-weight: 600;
 }
 
-/* ================= PROGRESS ================= */
+#timer {
+  font-size: 0.95rem;
+}
+
+#themeToggle {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: inherit;
+}
+
+/* =====================================================
+   PROGRESS BAR
+===================================================== */
 #progressContainer {
+  width: 100%;
   height: 6px;
-  background: #dbe2ff;
+  background: #e5e7eb;
 }
 
 #progressFill {
   height: 100%;
   width: 0%;
-  background: #ffb703;
+  background: #fbbf24;
   transition: width 0.3s ease;
 }
 
 #progressText {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  opacity: 0.9;
 }
 
-/* ================= MAIN CONTENT ================= */
+/* =====================================================
+   MAIN CONTENT
+===================================================== */
 #content {
   padding: 16px;
 }
 
-/* ================= HEADING ================= */
+/* =====================================================
+   HEADING
+===================================================== */
 h1 {
   text-align: center;
   font-size: 1.35rem;
@@ -72,13 +101,16 @@ h1 {
   color: #1f3c88;
 }
 
-
-/* ================= CATEGORY ================= */
+/* =====================================================
+   CATEGORY BUTTONS
+===================================================== */
 #categoryBox {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 12px;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 5;
 }
 
 #categoryBox button {
@@ -87,12 +119,14 @@ h1 {
   border: none;
   font-size: 0.95rem;
   font-weight: 600;
-  background: linear-gradient(135deg, #1f3c88, #3f5cc8);
-  color: #fff;
+  color: #ffffff;
+  background: linear-gradient(135deg, #1f3c88, #3b63e6);
   cursor: pointer;
 }
 
-/* ================= QUESTION CARD ================= */
+/* =====================================================
+   QUESTION CARD
+===================================================== */
 #question {
   background: #f4f6ff;
   border-radius: 16px;
@@ -103,12 +137,15 @@ h1 {
   margin-bottom: 18px;
 }
 
-
-/* ================= OPTIONS ================= */
+/* =====================================================
+   OPTIONS
+===================================================== */
 #options {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  position: relative;
+  z-index: 5;
 }
 
 #options button {
@@ -123,10 +160,8 @@ h1 {
   line-height: 1.4;
   text-align: left;
   cursor: pointer;
-  transition: background 0.15s ease, border 0.15s ease;
 }
 
-/* Option badge (A/B/C/D) */
 #options button::before {
   content: attr(data-label);
   min-width: 28px;
@@ -138,64 +173,51 @@ h1 {
   align-items: center;
   justify-content: center;
   font-weight: 700;
+  font-size: 0.85rem;
 }
 
-#options button:hover {
-  background: #eef2ff;
-  border-color: #c7d2fe;
-}
-
-/* ================= ANALYSIS / CARDS ================= */
-.analysis-card {
-  background: #f1f5ff;
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 14px;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-/* ================= REVIEW NAV ================= */
-.review-nav {
-  display: flex;
-  gap: 12px;
-  margin-top: 14px;
-}
-
-.review-nav button {
-  flex: 1;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  background: #1f3c88;
-  color: #fff;
-  font-weight: 600;
-}
-
-/* ================= BUTTON FEEDBACK ================= */
-button:active {
-  transform: scale(0.97);
-}
-
-/* ================= CHARTS ================= */
-canvas {
-  max-width: 100%;
-  margin-top: 16px;
-}
-
-/* ================= RESPONSIVE ================= */
-@media (min-width: 768px) {
-  #content {
-    padding: 20px;
-  }
-
-  #question {
-    font-size: 1.15rem;
-  }
+#options button.disabled {
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 /* =====================================================
-   BOTTOM NAVIGATION (REFINED)
+   ATTEMPT / PROGRESS CARDS
+===================================================== */
+.attempt-card {
+  background: #f1f5ff;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+/* =====================================================
+   LOADING / EMPTY STATES
+===================================================== */
+.loading,
+.empty-state {
+  text-align: center;
+  padding: 24px 12px;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* =====================================================
+   CHART FIX (CRITICAL)
+===================================================== */
+canvas {
+  max-width: 100%;
+  max-height: 220px;
+  pointer-events: none !important;
+  /* DO NOT BLOCK CLICKS */
+}
+
+/* =====================================================
+   BOTTOM NAVIGATION
 ===================================================== */
 #bottomNav {
   position: fixed;
@@ -208,10 +230,9 @@ canvas {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  z-index: 200;
+  z-index: 9999;
 }
 
-/* Nav buttons */
 #bottomNav button {
   background: none;
   border: none;
@@ -220,99 +241,212 @@ canvas {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
   cursor: pointer;
-  transition: color 0.15s ease;
 }
 
-/* Label text */
 #bottomNav span {
   font-size: 0.65rem;
-  font-weight: 500;
 }
 
-/* Active tab */
 #bottomNav button.active {
   color: #1f3c88;
+}
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+body.dark {
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+body.dark #app {
+  background: #020617;
+}
+
+body.dark #topBar {
+  background: #020617;
+}
+
+body.dark #progressContainer {
+  background: #1e293b;
+}
+
+body.dark #progressFill {
+  background: #38bdf8;
+}
+
+body.dark h1 {
+  color: #e5e7eb;
+}
+
+body.dark #question {
+  background: #020617;
+}
+
+body.dark #options button {
+  background: #020617;
+  border-color: #334155;
+  color: #e5e7eb;
+}
+
+body.dark #options button::before {
+  background: #334155;
+  color: #e5e7eb;
+}
+
+body.dark .attempt-card {
+  background: #020617;
+  border: 1px solid #334155;
+  color: #e5e7eb;
+}
+
+body.dark .attempt-card span {
+  color: #94a3b8;
+}
+
+body.dark #bottomNav {
+  background: #020617;
+  border-top-color: #334155;
+}
+
+body.dark #bottomNav button {
+  color: #94a3b8;
+}
+
+body.dark #bottomNav button.active {
+  color: #38bdf8;
+}
+
+/* ================= ONBOARDING ================= */
+
+#onboarding {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1f3c88, #3b63e6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.onboarding-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.onboarding-card h2 {
+  margin-bottom: 12px;
+  color: #1f3c88;
+}
+
+.onboarding-card p {
+  font-size: 0.9rem;
+  margin-bottom: 14px;
+  color: #374151;
+}
+
+.onboarding-card ul {
+  text-align: left;
+  font-size: 0.85rem;
+  margin-bottom: 18px;
+  color: #374151;
+}
+
+.onboarding-card li {
+  margin-bottom: 6px;
+}
+
+.onboarding-card button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 14px;
+  background: #1f3c88;
+  color: #ffffff;
+  font-size: 1rem;
   font-weight: 600;
+  cursor: pointer;
 }
 
-/* Subtle tap feedback */
-#bottomNav button:active {
-  transform: scale(0.92);
+/* ================= LOGIN ================= */
+
+#login {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #1f3c88, #3b63e6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
 }
 
-/* Space for nav */
-body {
-  padding-bottom: 72px;
+.login-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
-#timer {
-  font-size: 0.95rem;
+.login-card h2 {
+  margin-bottom: 16px;
+  color: #1f3c88;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #1f3c88;
+  color: #ffffff;
   font-weight: 600;
+  cursor: pointer;
 }
 
-#progressText {
-  font-size: 0.75rem;
-  opacity: 0.9;
+#loginMsg {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: #ef4444;
 }
 
-/* ================= OPTION INTERACTION ================= */
+/* ================= LOGOUT BUTTON ================= */
 
-#options button {
-  transition: background 0.15s ease,
-    border-color 0.15s ease,
-    transform 0.1s ease;
+#logoutBtn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #ffffff;
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+/* Hover / focus */
+#logoutBtn:hover {
+  background: rgba(255, 255, 255, 0.25);
 }
 
 /* Tap feedback */
-#options button:active {
-  transform: scale(0.97);
-}
-
-/* Disabled state after tap */
-#options button.disabled {
-  opacity: 0.7;
-  pointer-events: none;
-}
-
-/* Smooth question transition */
-#question,
-#options {
-  animation: fadeIn 0.2s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ================= LOADING & EMPTY STATES ================= */
-
-.loading {
-  text-align: center;
-  padding: 30px 10px;
-  font-size: 0.95rem;
-  color: #6b7280;
-}
-
-.loading span {
-  display: inline-block;
-  margin-top: 8px;
-  font-size: 0.8rem;
-  opacity: 0.8;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 24px 12px;
-  font-size: 0.9rem;
-  color: #6b7280;
+#logoutBtn:active {
+  transform: scale(0.95);
 }
