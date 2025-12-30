@@ -21,9 +21,45 @@
 <body>
 
   <!-- ================= APP CONTAINER ================= -->
+  <!-- LOGIN SCREEN -->
+  <div id="login">
+    <div class="login-card">
+      <h2>Login</h2>
+
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Password" />
+
+      <button onclick="login()">Login / Sign Up</button>
+
+      <p id="loginMsg"></p>
+    </div>
+  </div>
+
+  <!-- ONBOARDING SCREEN -->
+  <div id="onboarding">
+    <div class="onboarding-card">
+      <h2>Welcome to JKSSB Exam App</h2>
+      <p>
+        Practice JKSSB exams with real exam-like tests,
+        instant analysis, and progress tracking.
+      </p>
+
+      <ul>
+        <li>✔ Category-wise practice</li>
+        <li>✔ Full length mock tests</li>
+        <li>✔ Progress & performance analysis</li>
+        <li>✔ Mobile-friendly & fast</li>
+      </ul>
+
+      <button onclick="finishOnboarding()">Start Preparation</button>
+    </div>
+  </div>
+
   <div id="app">
 
     <!-- TOP BAR -->
+    <button onclick="logout()">Logout</button>
+
     <header id="topBar">
       <div id="timer">00:00</div>
       <div id="progressText"></div>
