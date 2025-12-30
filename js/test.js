@@ -546,3 +546,75 @@ function enableCategoryButtons() {
 }
 
 loadQuestions();
+function finishOnboarding() {
+  localStorage.setItem("jkssb_onboarding_done", "true");
+  document.getElementById("onboarding").style.display = "none";
+  document.getElementById("app").style.display = "block";
+}
+
+// Check onboarding on load
+(function checkOnboarding() {
+  const done = localStorage.getItem("jkssb_onboarding_done");
+  if (!done) {
+    document.getElementById("app").style.display = "none";
+  } else {
+    const ob = document.getElementById("onboarding");
+    if (ob) ob.style.display = "none";
+  }
+})();
+// ================= AUTH =================
+
+async function login() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const msg = document.getElementById("loginMsg");
+
+  if (!email || !password) {
+    msg.innerText = "Enter email and password";
+    return;
+  }
+
+  // Try login
+  let { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  // If user not found → sign up
+  if (error) {
+    const res = await supabaseClient.auth.signUp({
+      email,
+      password
+    });
+
+    if (res.error) {
+      msg.innerText = res.error.message;
+      return;
+    }
+  }
+
+  msg.innerText = "";
+}
+
+// Session check
+(async function checkSession() {
+  const { data } = await supabaseClient.auth.getSession();
+  if (data.session) {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("app").style.display = "block";
+  } else {
+    document.getElementById("app").style.display = "none";
+  }
+})();
+
+// Listen for auth changes
+supabaseClient.auth.onAuthStateChange((_event, session) => {
+  if (session) {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("app").style.display = "block";
+  }
+});
+async function logout() {
+  await supabaseClient.auth.signOut();
+  location.reload();
+}
